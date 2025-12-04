@@ -1,89 +1,49 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>¡Feliz cumpleaños!</title>
-  <style>
-    :root{--bg:#fff6f8;--card:#ffffff;--accent:#ff6b81;--muted:#6b6b6b}
-    html,body{height:100%;margin:0;font-family:Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial}
-    body{display:grid;place-items:center;background:linear-gradient(180deg,#fff6f8 0%, #fff 60%);padding:24px}
-    .card{width:min(720px,96%);background:var(--card);border-radius:16px;box-shadow:0 10px 30px rgba(0,0,0,0.08);padding:28px;text-align:center;position:relative;overflow:hidden}
-    h1{margin:0 0 8px;font-size:2.2rem;color:var(--accent)}
-    p{margin:0 0 18px;color:var(--muted);font-size:1.05rem}
-    .cake{font-size:4rem;line-height:1}
-    .btn{display:inline-block;padding:10px 18px;border-radius:999px;background:linear-gradient(90deg,var(--accent),#ff9ab3);color:white;text-decoration:none;font-weight:600;box-shadow:0 6px 18px rgba(255,107,129,0.24)}
-
-    /* Confetti */
-    .confetti{position:absolute;inset:0;pointer-events:none}
-    .confetti i{position:absolute;display:block;width:10px;height:18px;border-radius:3px;opacity:0;transform:translateY(-50px) rotate(0deg);animation:fall 2.8s linear infinite}
-    @keyframes fall{
-      0%{opacity:1;transform:translateY(-20%) rotate(0deg)}
-      100%{opacity:1;transform:translateY(120%) rotate(360deg)}
-    }
-
-    /* Balloons */
-    .balloons{display:flex;gap:14px;justify-content:center;margin-top:18px}
-    .balloon{width:56px;height:72px;border-radius:50% 50% 45% 45%;position:relative;display:inline-block}
-    .balloon::after{content:'';position:absolute;left:50%;transform:translateX(-50%);bottom:-22px;width:2px;height:20px;background:#555}
-    .balloon.p1{background:#ff9ab3;animation:float 4s ease-in-out infinite}
-    .balloon.p2{background:#ffd76a;animation:float 3.6s ease-in-out infinite 0.2s}
-    .balloon.p3{background:#9be7ff;animation:float 4.4s ease-in-out infinite 0.1s}
-    @keyframes float{0%{transform:translateY(0)}50%{transform:translateY(-14px)}100%{transform:translateY(0)} }
-
-    footer{margin-top:18px;color:#888;font-size:0.9rem}
-    @media (max-width:420px){h1{font-size:1.6rem}.cake{font-size:3rem}}
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Árbol de Amor Animado</title>
+    <!-- Autoría y derechos -->
+    <meta name="author" content="Michi">
+    <meta name="copyright" content="Michi - Pequeños detalles">
+    <meta name="description" content="cuack cuack: una sorpresa interactiva y romántica ">
+    <meta name="keywords" content="amor, sorpresa, romántico, dedicatoria, animación, árbol, corazones, pareja, aniversario, regalo digital">
+    <meta name="robots" content="index, follow">
+    <!-- Estilos -->
+    <link rel="stylesheet" href="Css/style.css">
+    <link rel="stylesheet" href="Css/style.mobile.css" media="only screen and (max-width: 600px)">
+    <style>
+      .tree-container {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 400px;
+        height: 400px;
+        z-index: 2;
+      }
+      .animated-heart {
+        transform-origin: center;
+        animation: beat 1s infinite;
+      }
+      @keyframes beat {
+        0%, 100% { transform: scale(1); }
+        20% { transform: scale(1.1); }
+        40% { transform: scale(0.95); }
+        60% { transform: scale(1.08); }
+        80% { transform: scale(1); }
+      }
+    </style>
 </head>
 <body>
-  <div class="card">
-    <div class="confetti" aria-hidden="true">
-      <!-- 30 confetti pieces -->
-      <!-- JS will position and color them when loaded -->
+    <div id="floating-objects"></div>
+    <div class="dedication-text" id="dedication-text">
+      <div class="signature" id="signature"></div>
     </div>
-    <div style="padding:18px 12px">
-      <div class="cake">🎂</div>
-      <h1>¡Feliz cumpleaños!</h1>
-      <p>Que tu día esté lleno de alegría, sorpresas lindas y mucho cariño. ¡Disfruta cada momento!</p>
-
-      <a class="btn" id="surpriseBtn" href="#" role="button">Ver sorpresa</a>
-
-      <div class="balloons" aria-hidden="true">
-        <div class="balloon p1"></div>
-        <div class="balloon p2"></div>
-        <div class="balloon p3"></div>
-      </div>
-
-      <footer>Con cariño — Alguien que te aprecia</footer>
-    </div>
-  </div>
-
-  <script>
-    // Generate confetti pieces
-    const confettiContainer = document.querySelector('.confetti');
-    const colors = ['#FF6B81','#FFD76A','#9BE7FF','#8AFFC1','#CDA4FF'];
-    for(let i=0;i<30;i++){
-      const el = document.createElement('i');
-      const left = Math.random()*100;
-      const delay = Math.random()*-2 + 's';
-      const dur = 2 + Math.random()*2.5 + 's';
-      el.style.left = left + '%';
-      el.style.top = (Math.random()*20 - 10) + '%';
-      el.style.background = colors[Math.floor(Math.random()*colors.length)];
-      el.style.width = (6 + Math.random()*12) + 'px';
-      el.style.height = (10 + Math.random()*18) + 'px';
-      el.style.borderRadius = (Math.random()*6)+'px';
-      el.style.animationDelay = delay;
-      el.style.animationDuration = dur;
-      confettiContainer.appendChild(el);
-    }
-
-    // Surprise button: small modal
-    const btn = document.getElementById('surpriseBtn');
-    btn.addEventListener('click', e=>{
-      e.preventDefault();
-      alert('¡Sorpresa! 🎉\nTe deseo un cumpleaños maravilloso.');
-    });
-  </script>
+    <div class="countdown" id="countdown"></div>
+    <div class="tree-container" id="tree-container"></div>
+    <audio src="Music/Sunny.mp3" id="bg-music" preload="auto"></audio>
+    <script src="Js/script.js"></script>
 </body>
 </html>
